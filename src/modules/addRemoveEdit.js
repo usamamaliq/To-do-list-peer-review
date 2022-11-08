@@ -14,23 +14,24 @@ export const updateLocalStorage = () => {
 export const displayTasks = () => {
   const taskContainer = document.querySelector('.tasks-cont');
   taskContainer.innerHTML = '';
-  for (let i = 0; i < taskList.length; i += 1) {
-    if (taskList[i].completed === true) {
+  taskList.map((item) => {
+    if (item.completed === true) {
       taskContainer.innerHTML += `<form onSubmit="updateTask(this)" class="task-list" >
-            <input onclick="checkBox(this)" class="pointer " type="checkbox" checked="checked" id="${taskList[i].index}">
-            <input required class= "taska line-through" type= "text" name="task" value= "${taskList[i].description}" readonly >    
+            <input onclick="checkBox(this)" class="pointer " type="checkbox" checked="checked" id="${item.index}">
+            <input required class= "taska line-through" type= "text" name="task" value= "${item.description}" readonly >    
             <i onclick="taskED(this)" class="fa  fa-ellipsis-v menuIcon pointer"></i>
             <i onclick="deleteTask(this)" class="fa   fa-trash delete pointer"></i>
         </form>`;
     } else {
       taskContainer.innerHTML += `<form type="submit" class="task-list" onsubmit="updateTask(this, event)" >
-        <input onclick="checkBox(this)" class="pointer " type="checkbox" id="${taskList[i].index}">
-        <input required class= "taska" type= "text" name="task" value= "${taskList[i].description}" readonly >    
+        <input onclick="checkBox(this)" class="pointer " type="checkbox" id="${item.index}">
+        <input required class= "taska" type= "text" name="task" value= "${item.description}" readonly >    
         <i onclick="taskED(this)" class="fa  fa-ellipsis-v menuIcon pointer"></i>
         <i onclick="deleteTask(this)" class="fa   fa-trash delete pointer"></i>
       </form>`;
     }
-  }
+    return 0;
+  });
 };
 
 // Function to update array after filering
@@ -52,9 +53,10 @@ const taskED = (EDId) => {
 const deleteTask = (deleteId) => {
   const checkBoxId = deleteId.parentElement.firstElementChild.getAttribute('id');
   taskList.splice(checkBoxId - 1, 1);
-  for (let i = checkBoxId - 1; i < taskList.length; i += 1) {
-    taskList[i].index -= 1;
-  }
+  taskList.map((item) => {
+    item.index -= 1;
+    return 0;
+  });
   updateLocalStorage();
   displayTasks();
 };
