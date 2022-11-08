@@ -19,9 +19,12 @@ const checkBox = (checkBoxID) => {
 // To clear completed tasks
 const clearButton = () => {
   const newList = taskList.filter((word) => !word.completed);
-  for (let b = 0; b < newList.length; b += 1) {
-    newList[b].index = b + 1;
-  }
+  let b = 1;
+  newList.map((item) => {
+    item.index = b;
+    b += 1;
+    return 0;
+  });
   arrayUpdate(newList);
   updateLocalStorage();
   displayTasks();
